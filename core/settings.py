@@ -9,6 +9,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = "users.User"
+
+LOCAL_APPS = [
+    "apps.users",
+]
 
 
 DJANGO_APPS = [
@@ -22,6 +27,7 @@ DJANGO_APPS = [
 
 INSTALLED_APPS = [
     *DJANGO_APPS,
+    *LOCAL_APPS,
 ]
 
 MIDDLEWARE = [
