@@ -9,6 +9,7 @@ User = get_user_model()
 class UserAdmin(admin.ModelAdmin):
     list_display = ['email']
     search_fields = ['email']
+    list_filter = ["is_student"]
     exclude = [
         "password",
         "is_superuser",
