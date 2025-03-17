@@ -1,14 +1,23 @@
 from django.db import models
 
 from django.contrib.auth import get_user_model
+from utils.get_media_path import banner_to_group
 
 User = get_user_model()
 
 
 class Group(models.Model):
+    banner_img = models.ImageField(
+        upload_to=banner_to_group,
+        verbose_name="Баннер",
+    )
     title = models.CharField(
         max_length=120,
         verbose_name="Название",
+    )
+    group_title = models.CharField(
+        max_length=120,
+        verbose_name="Направление группы",
     )
     subject = models.CharField(
         max_length=120,
