@@ -40,3 +40,32 @@ class Work(models.Model):
     class Meta:
         verbose_name = "Домашнее задание"
         verbose_name_plural = "Домашнее задания"
+
+
+class DoneWork(models.Model):
+    class StatusChoices(models.TextChoices):
+        ASSIGNED = "assigned", "Назначено"
+        SUBMITTED = "submitted", "Сдано"
+
+    student = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        related_name="my_done_works",
+    )
+    work = models.ForeignKey(
+        Work, on_delete=models.CASCADE,
+        related_name="done_works",
+    )
+    file_work = models.FileField()
+    status = models.CharField(
+        max_length=10,
+        choices=StatusChoices.choices,
+        default=StatusChoices.ASSIGNED,
+        verbose_name="Статус"
+    )
+
+    def __str__(self):
+        return self.student.username
+    
+    class Meta:
+        verbose_name = "Выполненное домашнее задание"
+        verbose_name_plural = "Выполненные домашнее задания"
