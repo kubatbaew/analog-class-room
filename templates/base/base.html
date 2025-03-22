@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+    <style>
+    </style>
+    
+</head>
+<body {% block class_body %}{% endblock %}>
+
+    {% block content %}
+    {% endblock %}
+    
+    <script src="{% static "js/main.js" %}"></script>
+</body>
+</html>
