@@ -9,15 +9,12 @@
     </div>
 
     <div class="logo">
-        <a href="./index.html">
+        <a href="{% url "homepage" %}">
             <img class="logo-img" src="images/logo/logo.svg" alt="">
         </a>
     </div>
 
-    <div class="avatar">
-        <h4 class="avatar-text">Кубатбаев Д. М.</h4>
-        <a href="./sign-up.html" class="logout-link">
-            <img src="images/components/logout.svg" alt="" class="logout-image">
-        </a>
+    <div class="avatar" style="margin-left: 50px;">
+        <h4 class="avatar-text">{{ user.get_full_name_header }}</h4>
     </div>
 </header>

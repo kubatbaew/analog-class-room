@@ -38,6 +38,9 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
     
+    def get_full_name_header(self):
+        return f"{self.first_name} {self.last_name[0]}. {self.father_name[0]}."
+    
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"

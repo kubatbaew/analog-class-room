@@ -101,7 +101,7 @@ STATIC_DIR = BASE_DIR / 'static'
 STATICFILES_DIRS = [STATIC_DIR]
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'meda'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 IMAGES_URL = 'images/'
 IMAGES_ROOT = BASE_DIR / 'images'

@@ -33,32 +33,62 @@ function togglePassword() {
     }
 }
 
-// Функция для открытия/закрытия меню действий
+// Функция для работы с меню действий (открытие/закрытие)
 function setupActions() {
     document.querySelectorAll('.actions > a').forEach(actionButton => {
         actionButton.addEventListener('click', (e) => {
             e.preventDefault();
-
-            // Найти ближайший .actions-menu
             const menu = actionButton.closest('.actions').querySelector('.actions-menu');
 
-            // Закрыть все меню перед открытием нужного
-            document.querySelectorAll('.actions-menu').forEach(m => m.classList.add('opa-hidden'));
+            document.querySelectorAll('.actions-menu').forEach(m => {
+                if (m !== menu) m.classList.add('opa-hidden');
+            });
 
-            // Переключить текущее меню
-            if (menu) {
-                menu.classList.toggle('opa-hidden');
-            }
+            if (menu) menu.classList.toggle('opa-hidden');
         });
     });
 
     // Закрытие меню при клике вне его
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.actions-menu') && !e.target.closest('.actions > a')) {
-            document.querySelectorAll('.actions-menu').forEach(menu => {
-                menu.classList.add('opa-hidden');
-            });
+            document.querySelectorAll('.actions-menu').forEach(menu => menu.classList.add('opa-hidden'));
         }
+    });
+}
+
+// Функция для работы с кнопками меню
+function toggleMenuButtons() {
+    const menuNoHover = document.getElementById('active-logo-no-hover');
+    const menuHover = document.getElementById('active-logo-hover');
+    const menuClick = document.getElementById('active-logo-click');
+    const menuClickHover = document.getElementById('active-logo-click-hover');
+
+    if (!menuNoHover || !menuHover || !menuClick || !menuClickHover) {
+        return; // Выход, если элементы не найдены
+    }
+
+    menuClick.style.display = "none";
+    menuHover.style.display = "none";
+    menuClickHover.style.display = "none";
+
+    menuNoHover.addEventListener("mouseover", () => {
+        menuHover.style.display = "block";
+    });
+
+    menuHover.addEventListener("mouseout", () => {
+        menuHover.style.display = "none";
+    });
+
+    menuHover.addEventListener("click", () => {
+        menuNoHover.style.display = "none";
+        menuHover.style.display = "none";
+        menuClick.style.display = "block";
+    });
+
+    menuClick.addEventListener("click", () => {
+        menuClick.style.display = "none";
+        menuHover.style.display = "none";
+        menuNoHover.style.display = "block";
     });
 }
 
@@ -80,67 +110,47 @@ function setupSorting() {
 
 // Функция удаления элемента
 function setupDeleteModal() {
-    const modal = document.getElementById("deleteModal");
-    const confirmDelete = document.getElementById("confirmDelete");
-    const cancelDelete = document.getElementById("cancelDelete");
-    let itemToDelete = null;
-
-    document.querySelectorAll(".action-item").forEach(button => {
+    document.querySelectorAll(".action-item.delete").forEach(button => {
         button.addEventListener("click", function () {
-            if (this.textContent.trim() === "Удалить") {
-                itemToDelete = this.closest(".item, .item-work"); // Учитываем оба класса
-                if (modal) modal.style.display = "flex";
+            const parentItem = this.closest(".item");
+            const deleteModal = parentItem.querySelector(".delete-modal");
+
+            if (deleteModal) {
+                deleteModal.classList.remove("delete-hidden");
+
+                const confirmDelete = deleteModal.querySelector("#confirmDelete");
+                const cancelDelete = deleteModal.querySelector("#cancelDelete");
+
+                confirmDelete.addEventListener("click", () => {
+                    parentItem.remove();
+                });
+
+                cancelDelete.addEventListener("click", () => {
+                    deleteModal.classList.add("delete-hidden");
+                });
             }
         });
     });
-
-    if (cancelDelete) {
-        cancelDelete.addEventListener("click", () => {
-            if (modal) modal.style.display = 'none';
-            itemToDelete = null;
-        });
-    }
-
-    if (confirmDelete) {
-        confirmDelete.addEventListener("click", () => {
-            if (itemToDelete) {
-                // itemToDelete.remove();
-                itemToDelete = null;
-                if (modal) modal.style.display = 'none';
-            }
-        });
-    }
 }
 
 // Функция открытия модального окна редактирования
 function setupEditModal() {
-    const editModalGroup = document.getElementById("editModalGroup");
-    const cancelChange = document.getElementById("cancelChange");
-
-    if (!editModalGroup) return;
-
-    document.querySelectorAll(".action-item").forEach(button => {
+    document.querySelectorAll(".action-item:not(.delete)").forEach(button => {
         button.addEventListener("click", function () {
-            if (this.textContent.trim() === "Изменить") {
-                const parentItem = this.closest(".item, .item-work"); // Ищем родительский элемент
-                const itemId = parentItem ? parentItem.getAttribute("id") : null;
+            const parentItem = this.closest(".item");
+            const editModal = parentItem.querySelector(".editModalGroup");
 
-                if (itemId) {
-                    editModalGroup.setAttribute("data-item-id", itemId); // Сохраняем ID внутри модального окна
-                }
+            if (editModal) {
+                editModal.style.display = "flex";
 
-                editModalGroup.style.display = "flex"; // Показываем модальное окно
+                const cancelChange = editModal.querySelector("#cancelChange");
+                cancelChange.addEventListener("click", () => {
+                    editModal.style.display = "none";
+                });
             }
         });
     });
-
-    if (cancelChange) {
-        cancelChange.addEventListener("click", () => {
-            editModalGroup.style.display = "none";
-        });
-    }
 }
-
 
 const bannerInput = document.getElementById('bannerInput');
 const bannerPreview = document.getElementById('bannerPreview');
