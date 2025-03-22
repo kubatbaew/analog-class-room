@@ -1,0 +1,6 @@
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Белый круглый фон -->
+  <circle cx="25" cy="25" r="25" fill="white"/>
+  <!-- Линии в центре -->
+  <path d="M42.6666 35.5H7.33325M32.9583 25H7.33325M42.6666 14.5H7.33325" stroke="black" stroke-width="3" stroke-linecap="round"/>
+</svg>

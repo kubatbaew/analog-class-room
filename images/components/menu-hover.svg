@@ -1,0 +1,7 @@
+<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+  <!-- Круглый фон -->
+  <circle cx="25" cy="25" r="23" fill="white" />
+  <!-- Ваши линии -->
+  <path d="M37.6666 33.8235H12.3333M37.6666 24.8823H12.3333M37.6666 15.9412H12.3333" 
+        stroke="black" stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -103,5 +103,8 @@ STATICFILES_DIRS = [STATIC_DIR]
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'meda'
 
+IMAGES_URL = 'images/'
+IMAGES_ROOT = BASE_DIR / 'images'
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
