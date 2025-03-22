@@ -62,42 +62,6 @@ function setupActions() {
     });
 }
 
-// Функция для работы с кнопками меню
-function toggleMenuButtons() {
-    const menuNoHover = document.getElementById('active-logo-no-hover');
-    const menuHover = document.getElementById('active-logo-hover');
-    const menuClick = document.getElementById('active-logo-click');
-    const menuClickHover = document.getElementById('active-logo-click-hover');
-
-    if (!menuNoHover || !menuHover || !menuClick || !menuClickHover) {
-        return; // Выход, если элементы не найдены
-    }
-
-    menuClick.style.display = "none";
-    menuHover.style.display = "none";
-    menuClickHover.style.display = "none";
-
-    menuNoHover.addEventListener("mouseover", () => {
-        menuHover.style.display = "block";
-    });
-
-    menuHover.addEventListener("mouseout", () => {
-        menuHover.style.display = "none";
-    });
-
-    menuHover.addEventListener("click", () => {
-        menuNoHover.style.display = "none";
-        menuHover.style.display = "none";
-        menuClick.style.display = "block";
-    });
-
-    menuClick.addEventListener("click", () => {
-        menuClick.style.display = "none";
-        menuHover.style.display = "none";
-        menuNoHover.style.display = "block";
-    });
-}
-
 // Функция сортировки работ
 function setupSorting() {
     const selectBox = document.getElementById('order-select');
