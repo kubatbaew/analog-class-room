@@ -1,0 +1,38 @@
+{% extends "base/base.html" %}
+
+{% block title %}MyWORKS{% endblock %}
+
+{% block class_body %}class="sign-up-body" style="background-image: url(../images/background.png);"{% endblock %}
+
+{% block content %}
+
+    <!-- Forms -->
+    <div class="form-container">
+        <h3 class="form-title">Добро пожаловать в систему MyWorks</h3>
+        <p class="form-description">Войти в систему чтобы продолжить</p>
+
+        <form action="{% url "login" %}" method="POST" class="form-main">
+            {% csrf_token %}
+            <label for="email" class="sign-up-label-email">Email</label>
+            <input type="email" name="email" id="email" placeholder="kubatbaev123456@oshsu.kg" class="sign-up-input-email" required>
+            
+            <label for="password" class="sign-up-label-password">Пароль</label>
+            <div class="password-container">
+                <input type="password" name="password" id="password" placeholder="******" class="sign-up-input-password" required>
+                <button type="button" class="password-toggle" onclick="togglePassword()">
+                    <img src="../images/icons/password.png" alt="Показать/Скрыть пароль" class="password-icon">
+                </button>
+            </div>
+            {% if error %}
+                <p style="color: red;">* {{ error }}</p>
+            {% else %}
+            {% endif %}
+
+            <button type="submit" class="btn-sumbit-sign-up">
+                <img src="../images/icons/button-signup.png" alt="Иконка кнопки" class="btn-icon-img">
+                Войти в систему
+            </button>
+        </form>
+    </div>
+
+{% endblock %}

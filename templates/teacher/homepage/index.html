@@ -30,7 +30,7 @@
                     </li>
                     <hr class="hr-nav">
                     <li class="nav-item" style="margin-top: 405px;">
-                        <a href="./schedules.html">
+                        <a href="{% url "logout" %}">
                             <svg style="padding-left: 5px;" width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14.2199 18.3999L17.9258 18.3999C18.4874 18.3999 19.0261 18.1787 19.4232 17.7848C19.8203 17.391 20.0435 16.8569 20.0435 16.2999L20.0435 3.6999C20.0435 3.14295 19.8203 2.60881 19.4232 2.21498C19.0261 1.82115 18.4874 1.5999 17.9258 1.5999L14.2199 1.5999M13.9567 9.9999L1.95674 9.9999M1.95674 9.9999L6.54189 14.7999M1.95674 9.9999L6.54189 5.1999" stroke="#5D5D5D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>                      
@@ -64,7 +64,7 @@
                                         <path d="M15 27C13.3431 27 12 25.6569 12 24C12 22.3431 13.3431 21 15 21C16.6569 21 18 22.3431 18 24C18 25.6569 16.6569 27 15 27Z"/>
                                     </svg> 
                                 </a>          
-                                <div class="actions-menu opa-hidden">
+                                <div class="actions-menu opa-hidden" style="position: relative;">
                                     <a href="#" class="action-item">Изменить</a>
                                     <a class="action-item delete">Удалить</a>
                                 </div>                 
@@ -97,7 +97,7 @@
                                 <div class="delete-modal-content">
                                     <p style="color: black;">Вы уверены, что хотите удалить этот элемент?</p>
                                     <div class="delete-modal-actions">
-                                        <button id="confirmDelete" class="delete-modal-button">Да</button>
+                                        <button id="confirmDelete" class="delete-modal-button" data-delete-url="{% url 'delete_group' group.id %}">Да</button>
                                         <button id="cancelDelete" class="delete-modal-button">Отмена</button>
                                     </div>
                                 </div>

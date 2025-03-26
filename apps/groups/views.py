@@ -12,3 +12,10 @@ def edit_group(request, pk):
     group.save()
 
     return redirect('homepage')
+
+
+def delete_group(request, pk):
+    group = get_object_or_404(Group, pk=pk)
+    group.delete()
+
+    return redirect('homepage')

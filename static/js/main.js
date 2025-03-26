@@ -108,7 +108,6 @@ function setupSorting() {
     });
 }
 
-// Функция удаления элемента
 function setupDeleteModal() {
     document.querySelectorAll(".action-item.delete").forEach(button => {
         button.addEventListener("click", function () {
@@ -117,21 +116,24 @@ function setupDeleteModal() {
 
             if (deleteModal) {
                 deleteModal.classList.remove("delete-hidden");
+                deleteModal.style.display = "flex";
 
-                const confirmDelete = deleteModal.querySelector("#confirmDelete");
-                const cancelDelete = deleteModal.querySelector("#cancelDelete");
+                const confirmDelete = deleteModal.querySelector(".delete-modal-button:first-child");
+                const cancelDelete = deleteModal.querySelector(".delete-modal-button:last-child");
 
                 confirmDelete.addEventListener("click", () => {
-                    parentItem.remove();
+                    window.location.href = confirmDelete.dataset.deleteUrl;
                 });
 
                 cancelDelete.addEventListener("click", () => {
                     deleteModal.classList.add("delete-hidden");
+                    deleteModal.style.display = "none";
                 });
             }
         });
     });
 }
+
 
 // Функция открытия модального окна редактирования
 function setupEditModal() {

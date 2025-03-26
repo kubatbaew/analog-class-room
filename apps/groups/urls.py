@@ -5,4 +5,5 @@ from apps.groups import views
 
 urlpatterns = [
     path("edit-group/<int:pk>", views.edit_group, name="edit_group"),
+    path("delete-group/<int:pk>", views.delete_group, name="delete_group")
 ]
