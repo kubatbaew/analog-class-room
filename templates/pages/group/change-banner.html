@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Window for Upload Banner</title>
+    <link rel="stylesheet" href="{% static "./css/styles.css" %}">
+    <style>
+        .change-banner-body {
+            background-image: url(../images/background-banner.png);
+            background-size: 100%;
+            background-repeat: no-repeat;
+            color: #fff;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .modal-window-for-upload-banner {
+            background-color: #fff;
+            color: #000;
+            width: 500px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .modal-window-for-upload-banner h2 {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: start;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .banner-preview {
+            width: 100%;
+            height: 150px;
+            border-radius: 8px;
+            object-fit: cover;
+            background-color: #e0e0e0;
+        }
+
+        .upload-banner-for-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 296px;
+            width: 170px;
+            padding: 8px 16px;
+            font-size: 14px;
+            color: #1967d2;
+            background-color: #e8f0fe;
+            border: 1px solid #d2e3fc;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .upload-banner-for-group:hover {
+            background-color: #d2e3fc;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-banner-for-group input[type="file"] {
+            display: none;
+        }
+
+        .actions-btn-upload {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .actions-btn-upload button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .actions-btn-upload .cancel {
+            color: #757575;
+        }
+
+        .actions-btn-upload .cancel:hover {
+            background-color: #f5f5f5;
+        }
+
+        .actions-btn-upload .save {
+            color: #fff;
+            background-color: #1967d2;
+            cursor: pointer;
+        }
+
+        .actions-btn-upload .save:disabled {
+            background-color: #c4c4c4;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="change-banner-body">
+    <div class="modal-window-for-upload-banner">
+        <form action="{% url "change_banner_group" group.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <h2>Настроить вид</h2>
+            <img src="{{ group.banner_img.url }}" alt="Предварительный просмотр" class="banner-preview" id="bannerPreview">
+            <label class="upload-banner-for-group">
+                <input type="file" name="banner_img" id="bannerInput" accept="image/*">
+                <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.19739 18.9343L13.256 10.4086L17.5188 14.6714M4.19739 18.9343H14.8545C16.6203 18.9343 18.0517 17.5029 18.0517 15.7371V10.4086M4.19739 18.9343C2.43165 18.9343 1.00024 17.5029 1.00024 15.7371V5.08001C1.00024 3.31427 2.43165 1.88287 4.19739 1.88287H11.1245M16.986 7.02859L16.986 4.01429M16.986 4.01429L16.986 1M16.986 4.01429L13.9717 4.01429M16.986 4.01429L20.0002 4.01429M7.39453 6.67858C7.39453 7.56144 6.67882 8.27715 5.79596 8.27715C4.91309 8.27715 4.19739 7.56144 4.19739 6.67858C4.19739 5.79571 4.91309 5.08001 5.79596 5.08001C6.67882 5.08001 7.39453 5.79571 7.39453 6.67858Z" stroke="#1967D2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Выбрать фотографию</span>
+            </label>
+            <div class="actions-btn-upload">
+                <button class="cancel">Отмена</button>
+                <button class="save" disabled type="submit">Сохранить</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const bannerInput = document.getElementById('bannerInput');
+        const bannerPreview = document.getElementById('bannerPreview');
+        const saveButton = document.querySelector('.save');
+        const cancelButton = document.querySelector('.cancel');
+
+        bannerInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    bannerPreview.src = e.target.result;
+                    saveButton.disabled = false; // Активируем кнопку "Сохранить"
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        cancelButton.addEventListener('click', () => {
+            window.history.back();
+        })
+    </script>
+</body>
+</html>

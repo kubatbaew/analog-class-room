@@ -15,6 +15,7 @@ LOCAL_APPS = [
     "apps.users",
     "apps.groups",
     "apps.works",
+    "apps.news",
 ]
 
 
