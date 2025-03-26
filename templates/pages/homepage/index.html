@@ -48,7 +48,7 @@
                         <li class="item">
                             <div class="item-text" style="background-image: url('{{ group.banner_img.url }}'); background-size: 100%;">
                                 <a href="./work-detail.html">
-                                    <h3>{{ group.title }}</h3>
+                                    <h3>{{ group.title|truncatechars:22 }}</h3>
                                     <p>{{ group.group_title }}</p>
                                 </a>
                             </div>
