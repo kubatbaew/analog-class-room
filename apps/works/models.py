@@ -7,6 +7,11 @@ User = get_user_model()
 
 
 class Work(models.Model):
+    topic = models.CharField(
+        max_length=120,
+        verbose_name="Тема задания",
+        default="Нет"
+    )
     title = models.CharField(
         max_length=120,
         verbose_name="Название",
@@ -28,6 +33,7 @@ class Work(models.Model):
     )
     max_point = models.PositiveSmallIntegerField(
         verbose_name="Максимальное количество баллов",
+        default=100,
     )
     description = models.TextField(
         verbose_name="Описание",

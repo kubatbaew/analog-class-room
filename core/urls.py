@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include("apps.pages.urls")),
     path('', include("apps.groups.urls")),
     path('', include("apps.users.urls")),
+    path('', include("apps.works.urls")),
     path('admin/', admin.site.urls),
 ]
 
