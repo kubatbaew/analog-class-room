@@ -1,0 +1,115 @@
+{% extends "base/base.html" %}
+
+{% block title %}{{ student.get_full_name }}{% endblock %}
+    
+{% block class_body %}class="index-body"{% endblock %}
+
+{% block content %}
+
+    {% include "base/header.html" %}
+    
+    <div class="contain-main">
+        <div class="side-bar">
+            <div class="nav-side-bar">
+                <ul>
+                    <li class="nav-item">
+                        <a href="{% url "homepage" %}">
+                            <svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22.9289 12.6875L21.0938 10.7857V6.125C21.0938 5.40312 20.5242 4.8125 19.8281 4.8125H18.5625C17.8664 4.8125 17.2969 5.40312 17.2969 6.125V6.85081L14.7656 4.22844C14.4201 3.88981 14.1037 3.5 13.5 3.5C12.8963 3.5 12.5799 3.88981 12.2344 4.22844L4.07109 12.6875C3.67622 13.1141 3.375 13.4251 3.375 14C3.375 14.7389 3.92175 15.3125 4.64062 15.3125H5.90625V23.1875C5.90625 23.9094 6.47578 24.5 7.17188 24.5H9.70312C10.4021 24.5 10.9688 23.9124 10.9688 23.1875V17.9375C10.9688 17.2156 11.5383 16.625 12.2344 16.625H14.7656C15.4617 16.625 16.0312 17.2156 16.0312 17.9375V23.1875C16.0312 23.9124 15.9651 24.5 16.6641 24.5H19.8281C20.5242 24.5 21.0938 23.9094 21.0938 23.1875V15.3125H22.3594C23.0783 15.3125 23.625 14.7389 23.625 14C23.625 13.4251 23.3238 13.1141 22.9289 12.6875Z" stroke="#5D5D5D" stroke-width="2" stroke-linejoin="round"/>
+                            </svg>
+                            <p>Главная страница</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./schedules.html">
+                            <svg style="padding-left: 4px;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13.3754 9.99945H10.0004M10.0004 9.99945H6.62537M10.0004 9.99945V13.3744M10.0004 9.99945L10.0004 6.62447M19 4.37498L19 15.625C19 17.489 17.489 19 15.625 19H4.375C2.51104 19 1 17.489 1 15.625V4.37498C1 2.51103 2.51104 1 4.375 1H15.625C17.489 1 19 2.51103 19 4.37498Z" stroke="#5D5D5D" stroke-width="2" stroke-linejoin="round"/>
+                            </svg>                           
+                            <p>Добавить группу</p>
+                        </a>
+                    </li>
+                    <hr class="hr-nav">
+                    <li class="nav-item" style="margin-top: 405px;">
+                        <a href="{% url "logout" %}">
+                            <svg style="padding-left: 5px;" width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.2199 18.3999L17.9258 18.3999C18.4874 18.3999 19.0261 18.1787 19.4232 17.7848C19.8203 17.391 20.0435 16.8569 20.0435 16.2999L20.0435 3.6999C20.0435 3.14295 19.8203 2.60881 19.4232 2.21498C19.0261 1.82115 18.4874 1.5999 17.9258 1.5999L14.2199 1.5999M13.9567 9.9999L1.95674 9.9999M1.95674 9.9999L6.54189 14.7999M1.95674 9.9999L6.54189 5.1999" stroke="#5D5D5D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>                      
+                            <p>Выход </p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="main">
+            <div class="head-info">
+                <h3 class="title-schedule">Статистика выполненных заданий студента</h3>
+                <div class="static-icon-schedule">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.0002 2.3999V5.9999C15.0002 6.66264 15.5375 7.1999 16.2002 7.1999H19.8002M8.4002 17.9999V13.1999M12.0002 17.9999L12.0002 8.3999M15.6002 17.9999V13.1999M18.0002 4.1999C17.4661 3.72204 16.9119 3.15528 16.5621 2.78718C16.3292 2.54224 16.0076 2.3999 15.6696 2.3999H6.59992C5.27444 2.3999 4.19993 3.47441 4.19992 4.79989L4.19983 19.1998C4.19982 20.5253 5.27433 21.5998 6.59982 21.5998L17.3999 21.5999C18.7253 21.5999 19.7998 20.5254 19.7999 19.2L19.8002 6.47773C19.8002 6.1709 19.6831 5.87594 19.4702 5.65503C19.0764 5.24655 18.4188 4.57442 18.0002 4.1999Z" stroke="#5D5D5D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>                    
+                </div>
+            </div>
+
+            <div class="back-page" style="padding-top: 20px">
+                <a href="javascript:history.back()" class="back-page-btn">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.1269 23.2694C14.4804 23.6937 15.111 23.751 15.5353 23.3974C15.9596 23.0439 16.0169 22.4133 15.6633 21.989L14.1269 23.2694ZM9.37078 16L8.60256 15.3599C8.29352 15.7307 8.29352 16.2694 8.60256 16.6402L9.37078 16ZM15.6633 10.0111C16.0169 9.58678 15.9596 8.95622 15.5353 8.60265C15.111 8.24909 14.4804 8.30641 14.1269 8.73069L15.6633 10.0111ZM22.6291 17C23.1814 17 23.6291 16.5523 23.6291 16C23.6291 15.4478 23.1814 15 22.6291 15V17ZM15.6633 21.989L10.139 15.3599L8.60256 16.6402L14.1269 23.2694L15.6633 21.989ZM10.139 16.6402L15.6633 10.0111L14.1269 8.73069L8.60256 15.3599L10.139 16.6402ZM9.37078 17H22.6291V15H9.37078V17ZM6.10051 6.10051C11.5678 0.633165 20.4322 0.633165 25.8995 6.10051L27.3137 4.68629C21.0653 -1.5621 10.9347 -1.5621 4.68629 4.68629L6.10051 6.10051ZM25.8995 6.10051C31.3668 11.5678 31.3668 20.4322 25.8995 25.8995L27.3137 27.3137C33.5621 21.0653 33.5621 10.9347 27.3137 4.68629L25.8995 6.10051ZM25.8995 25.8995C20.4322 31.3668 11.5678 31.3668 6.10051 25.8995L4.68629 27.3137C10.9347 33.5621 21.0653 33.5621 27.3137 27.3137L25.8995 25.8995ZM6.10051 25.8995C0.633165 20.4322 0.633165 11.5678 6.10051 6.10051L4.68629 4.68629C-1.5621 10.9347 -1.5621 21.0653 4.68629 27.3137L6.10051 25.8995Z" fill="white"/>
+                    </svg>
+                    <p style="padding-left: 14px;">Назад</p>
+                </a>
+            </div>
+
+            <h3 style="padding-top: 20px;">{{ student.get_full_name }}</h3>
+            <p>группа: {{ group.group_title }}</p>
+
+            <div class="schedule-content">
+                <table class="schedule-table">
+                    <thead>
+                        <tr class="schedule-header">
+                            <th class="schedule-cell-main">№</th>
+                            <th class="schedule-cell-main">Название задании</th>
+                            <th class="schedule-cell-main">Количество баллов зад.</th>
+                            <th class="schedule-cell-main">Балл сделанного зад.</th>
+                            <th class="schedule-cell-main">Задание студента</th>
+                            <th class="schedule-cell-main">Статус выполнения</th>
+                        </tr>
+                    </thead>
+                    <tbody class="schedule-table-tbody">
+                        {% for work in works %}
+                            <tr class="schedule-row">
+                                <td class="schedule-cell">{{ work.count }}</td>
+                                <td class="schedule-cell">{{ work.work.title }}</td>
+                                <td class="schedule-cell">{{ work.work.max_point }}</td>
+                                <td class="schedule-cell">{% if work.done_work %}{{ work.done_work.0.grade }}{% else %}0{% endif %}</td>
+                                <td class="schedule-cell">
+                                    {% if work.done_work %}
+                                        <a href="{% url "detail_done_work" work.done_work.0.id %}">Посмотреть задание</a>
+                                    {% else %}
+                                        Задание отсуствует
+                                    {% endif %}
+                                </td>
+                                <td class="schedule-cell">
+                                    {{ work.status_done }}
+                                </td>                                
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr class="schedule-header">
+                            <th class="schedule-cell-main"></th>
+                            <th class="schedule-cell-main">Итоги выполненных зад.</th>
+                            <th class="schedule-cell-main"></th>
+                            <th class="schedule-cell-main"></th>
+                            <th class="schedule-cell-main">{{ total_percent }}%</th>
+                            <th class="schedule-cell-main">{{ total_status }}</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>                       
+            
+            
+        </div>
+    </div>
+
+{% endblock %}

@@ -188,7 +188,7 @@
                                 <div class="work-icon-for-item image">
                                     <img src="../images/students.png" alt="">
                                 </div>
-                                <a href="">
+                                <a href="{% if request.user.is_student %}#{% else %}{% url "student_schedule" student.id group.id %}{% endif %}">
                                     <h3 class="user-title">{{ student.first_name }} {{ student.last_name }}</h3>
                                 </a>  
                                 
