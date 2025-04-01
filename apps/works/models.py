@@ -52,6 +52,7 @@ class DoneWork(models.Model):
     class StatusChoices(models.TextChoices):
         ASSIGNED = "assigned", "Назначено"
         SUBMITTED = "submitted", "Сдано"
+        DONE_GRADE = "done_grade", "Оценен"
 
     student = models.ForeignKey(
         User, on_delete=models.CASCADE,
@@ -60,6 +61,11 @@ class DoneWork(models.Model):
     work = models.ForeignKey(
         Work, on_delete=models.CASCADE,
         related_name="done_works",
+    )
+    grade = models.PositiveSmallIntegerField(
+        blank=True,
+        null=True,
+        verbose_name="Поставленная оценка",
     )
     file_work = models.FileField()
     status = models.CharField(
@@ -70,7 +76,7 @@ class DoneWork(models.Model):
     )
 
     def __str__(self):
-        return self.student.username
+        return self.student.email
     
     class Meta:
         verbose_name = "Выполненное домашнее задание"

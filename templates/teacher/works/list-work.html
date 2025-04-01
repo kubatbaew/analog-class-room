@@ -22,10 +22,10 @@
                     </li>
                     <li class="nav-item">
                         <a href="./schedules.html">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M15.0001 2.40002V6.00002C15.0001 6.66277 15.5373 7.20002 16.2001 7.20002H19.8001M8.40008 18V13.2M12.0001 18L12.0001 8.40002M15.6001 18V13.2M18.0001 4.20002C17.466 3.72217 16.9118 3.1554 16.5619 2.7873C16.3291 2.54236 16.0074 2.40002 15.6695 2.40002H6.5998C5.27432 2.40002 4.19981 3.47453 4.1998 4.80001L4.19971 19.2C4.1997 20.5254 5.27421 21.6 6.5997 21.6L17.3997 21.6C18.7252 21.6 19.7997 20.5255 19.7998 19.2001L19.8001 6.47786C19.8001 6.17102 19.683 5.87606 19.4701 5.65516C19.0763 5.24667 18.4187 4.57454 18.0001 4.20002Z" stroke="#5D5D5D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>                                
-                            <p>Статистика</p>
+                            <svg style="padding-left: 4px;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13.3754 9.99945H10.0004M10.0004 9.99945H6.62537M10.0004 9.99945V13.3744M10.0004 9.99945L10.0004 6.62447M19 4.37498L19 15.625C19 17.489 17.489 19 15.625 19H4.375C2.51104 19 1 17.489 1 15.625V4.37498C1 2.51103 2.51104 1 4.375 1H15.625C17.489 1 19 2.51103 19 4.37498Z" stroke="#5D5D5D" stroke-width="2" stroke-linejoin="round"/>
+                            </svg>                           
+                            <p>Добавить группу</p>
                         </a>
                     </li>
                     <hr class="hr-nav">
@@ -57,7 +57,7 @@
                     </h3>
                     <div class="line-active works"></div>
                     <h3 class="title-tape">
-                        <a href="" style="color: #5D5D5D;">
+                        <a href="{% url "group_users" group.id %}" style="color: #5D5D5D;">
                             Пользователи
                         </a>
                     </h3>
@@ -72,7 +72,7 @@
             <hr class="schedule-hr">
             
             <div class="works-content">
-                <div class="order-select-box">
+                <div class="order-select-box" style="margin-right: 669px">
                     <select name="order" id="order-select">
                         <option value="all" selected>Все темы</option>
                         {% for topic in topics %}
@@ -81,7 +81,7 @@
                     </select>
                 </div>
 
-                <a href="asd.html" class="create-work-btn" sty>
+                <a href="asd.html" class="create-work-btn" style="margin-left: 155px">
                     Создать задание
                 </a>
 
@@ -101,7 +101,7 @@
                                             </svg>
                                         </div>
 
-                                        <a href="" style="margin-right: auto;">
+                                        <a href="{% url "detail_work" work.id %}" style="margin-right: auto;">
                                             <h3 class="work-title">{{ work.title|truncatechars:30 }}</h3>
                                         </a>
 

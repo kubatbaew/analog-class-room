@@ -57,7 +57,7 @@
                     </h3>
                     <div class="line-active works"></div>
                     <h3 class="title-tape">
-                        <a href="" style="color: #5D5D5D;">
+                        <a href="{% url "group_users" group.id %}" style="color: #5D5D5D;">
                             Пользователи
                         </a>
                     </h3>
@@ -72,7 +72,7 @@
             <hr class="schedule-hr">
             
             <div class="works-content">
-                <div class="order-select-box">
+                <div class="order-select-box" style="margin-right: 669px">
                     <select name="order" id="order-select">
                         <option value="all" selected>Все темы</option>
                         {% for topic in topics %}
@@ -80,10 +80,6 @@
                         {% endfor %}
                     </select>
                 </div>
-
-                <a href="asd.html" class="create-work-btn" sty>
-                    Создать задание
-                </a>
 
                 <ul class="all-works">
 
@@ -101,7 +97,7 @@
                                             </svg>
                                         </div>
 
-                                        <a href="" style="margin-right: auto;">
+                                        <a href="{% url "detail_work" work.id %}" style="margin-right: auto;">
                                             <h3 class="work-title">{{ work.title|truncatechars:30 }}</h3>
                                         </a>
 

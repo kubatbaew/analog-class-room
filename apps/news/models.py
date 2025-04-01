@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 from apps.groups.models import Group
+from apps.works.models import Work
 
 User = get_user_model()
 
@@ -16,6 +17,10 @@ class Notification(models.Model):
     teacher = models.ForeignKey(
         User, on_delete=models.CASCADE,
         verbose_name="Преподователь",
+    )
+    work = models.ForeignKey(
+        Work, on_delete=models.CASCADE,
+        verbose_name="Задание",
     )
     is_new_work = models.BooleanField(
         default=None,

@@ -1,0 +1,163 @@
+{% extends "base/base.html" %}
+
+{% block title %}{{ work.title }}{% endblock %}
+    
+{% block class_body %}class="index-body"{% endblock %}
+
+{% block content %}
+
+    {% include "base/header.html" %}
+
+    <div class="contain-main">
+        <div class="side-bar">
+            <div class="nav-side-bar">
+                <ul>
+                    <li class="nav-item">
+                        <a href="{% url "homepage" %}">
+                            <svg width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22.9289 12.6875L21.0938 10.7857V6.125C21.0938 5.40312 20.5242 4.8125 19.8281 4.8125H18.5625C17.8664 4.8125 17.2969 5.40312 17.2969 6.125V6.85081L14.7656 4.22844C14.4201 3.88981 14.1037 3.5 13.5 3.5C12.8963 3.5 12.5799 3.88981 12.2344 4.22844L4.07109 12.6875C3.67622 13.1141 3.375 13.4251 3.375 14C3.375 14.7389 3.92175 15.3125 4.64062 15.3125H5.90625V23.1875C5.90625 23.9094 6.47578 24.5 7.17188 24.5H9.70312C10.4021 24.5 10.9688 23.9124 10.9688 23.1875V17.9375C10.9688 17.2156 11.5383 16.625 12.2344 16.625H14.7656C15.4617 16.625 16.0312 17.2156 16.0312 17.9375V23.1875C16.0312 23.9124 15.9651 24.5 16.6641 24.5H19.8281C20.5242 24.5 21.0938 23.9094 21.0938 23.1875V15.3125H22.3594C23.0783 15.3125 23.625 14.7389 23.625 14C23.625 13.4251 23.3238 13.1141 22.9289 12.6875Z" stroke="#5D5D5D" stroke-width="2" stroke-linejoin="round"/>
+                            </svg>
+                            <p>Главная страница</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./schedules.html">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.0001 2.40002V6.00002C15.0001 6.66277 15.5373 7.20002 16.2001 7.20002H19.8001M8.40008 18V13.2M12.0001 18L12.0001 8.40002M15.6001 18V13.2M18.0001 4.20002C17.466 3.72217 16.9118 3.1554 16.5619 2.7873C16.3291 2.54236 16.0074 2.40002 15.6695 2.40002H6.5998C5.27432 2.40002 4.19981 3.47453 4.1998 4.80001L4.19971 19.2C4.1997 20.5254 5.27421 21.6 6.5997 21.6L17.3997 21.6C18.7252 21.6 19.7997 20.5255 19.7998 19.2001L19.8001 6.47786C19.8001 6.17102 19.683 5.87606 19.4701 5.65516C19.0763 5.24667 18.4187 4.57454 18.0001 4.20002Z" stroke="#5D5D5D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>                                
+                            <p>Статистика</p>
+                        </a>
+                    </li>
+                    <hr class="hr-nav">
+                    <li class="nav-item" style="margin-top: 405px;">
+                        <a href="{% url "logout" %}">
+                            <svg style="padding-left: 5px;" width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.2199 18.3999L17.9258 18.3999C18.4874 18.3999 19.0261 18.1787 19.4232 17.7848C19.8203 17.391 20.0435 16.8569 20.0435 16.2999L20.0435 3.6999C20.0435 3.14295 19.8203 2.60881 19.4232 2.21498C19.0261 1.82115 18.4874 1.5999 17.9258 1.5999L14.2199 1.5999M13.9567 9.9999L1.95674 9.9999M1.95674 9.9999L6.54189 14.7999M1.95674 9.9999L6.54189 5.1999" stroke="#5D5D5D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>                      
+                            <p>Выход </p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="main">
+            <div class="head-info">
+                <div class="titles-work-detail">
+                    <h3 class="title-tape">
+                        <a href="{% url "detail_group" work.group.id %}" style="color: #5D5D5D;">
+                            Лента
+                        </a>
+                    </h3>
+                    
+                    <h3 class="title-tape">
+                        <a href="{% url "list_works_by_group" work.group.id %}" class="title-tipe-a-active">
+                            Задания
+                        </a>
+                    </h3>
+                    <div class="line-active works"></div>
+                    <h3 class="title-tape">
+                        <a href="{% url "group_users" work.group.id %}" style="color: #5D5D5D;">
+                            Пользователи
+                        </a>
+                    </h3>
+                </div>
+                <div class="static-icon-schedule">
+                    <svg width="30" height="29" viewBox="0 0 30 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M25 21.1765H5M25 14.1177H5M25 7.05884H5" stroke="#5D5D5D" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>      
+            
+            <hr class="schedule-hr">
+            
+            <div class="works-content">
+                <div class="reading-work">
+                    <div class="info-work-reading" style="width: 100%;">
+                        <div class="work-read-title">
+                            <h2>{{ work.title }}</h2>
+                            <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13.5 8.09995C12.0089 8.09995 10.8 6.89112 10.8 5.39995C10.8 3.90878 12.0089 2.69995 13.5 2.69995C14.9912 2.69995 16.2 3.90878 16.2 5.39995C16.2 6.89112 14.9912 8.09995 13.5 8.09995Z" fill="#1D1D1D"/>
+                                <path d="M13.5 16.2C12.0089 16.2 10.8 14.9911 10.8 13.5C10.8 12.0088 12.0089 10.8 13.5 10.8C14.9912 10.8 16.2 12.0088 16.2 13.5C16.2 14.9911 14.9912 16.2 13.5 16.2Z" fill="#1D1D1D"/>
+                                <path d="M13.5 24.3C12.0089 24.3 10.8 23.0911 10.8 21.6C10.8 20.1088 12.0089 18.9 13.5 18.9C14.9912 18.9 16.2 20.1088 16.2 21.6C16.2 23.0911 14.9912 24.3 13.5 24.3Z" fill="#1D1D1D"/>
+                                <path d="M13.5 8.09995C12.0089 8.09995 10.8 6.89112 10.8 5.39995C10.8 3.90878 12.0089 2.69995 13.5 2.69995C14.9912 2.69995 16.2 3.90878 16.2 5.39995C16.2 6.89112 14.9912 8.09995 13.5 8.09995Z"/>
+                                <path d="M13.5 16.2C12.0089 16.2 10.8 14.9911 10.8 13.5C10.8 12.0088 12.0089 10.8 13.5 10.8C14.9912 10.8 16.2 12.0088 16.2 13.5C16.2 14.9911 14.9912 16.2 13.5 16.2Z" />
+                                <path d="M13.5 24.3C12.0089 24.3 10.8 23.0911 10.8 21.6C10.8 20.1088 12.0089 18.9 13.5 18.9C14.9912 18.9 16.2 20.1088 16.2 21.6C16.2 23.0911 14.9912 24.3 13.5 24.3Z" />
+                            </svg>
+                        </div>
+                        <div class="created-at-work">
+                            <p>{{ work.teacher.first_name }} {{ work.teacher.last_name }}</p>
+                            <svg width="5" height="5" viewBox="0 0 5 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="5" height="5" rx="2.5" fill="#3D3D3D"/>
+                            </svg>                                
+                            <p>{{ work.created_at }}</p>
+                        </div>
+
+                        <div class="deadline-and-point">
+                            <p>{{ work.max_point }} баллов</p>
+                            <p>Срок сдачи: {{ work.delivery_time }}</p>
+                        </div>
+
+                        <div class="description-and-links">
+                            <p>
+                                {{ work.description|safe }}
+                            </p>
+
+                            {% comment %} <div class="link-work">
+                                <div class="image-link-work">
+                                    <img src="../images/work-image-link.png" alt="">
+                                </div>
+                                <div class="text-link-work">
+                                    <div class="text-link-work title">
+                                        <p>Введение</p>
+                                        <svg width="5" height="5" viewBox="0 0 5 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="5" height="5" rx="2.5" fill="#3D3D3D"/>
+                                        </svg>
+                                        <p>HonKit</p>
+                                    </div>
+                                    <a href="https://tutorial.djangogirls.org/ru/" class="text-link-work title" target="_blank">
+                                        https://tutorial.djangogirls.org/ru/
+                                    </a>
+                                </div>
+                            </div> {% endcomment %}
+
+                        </div>
+                    </div>
+                    <div class="task-container">
+                        
+                        {% if done_work_student %}
+                            <div style="display: flex;align-items: center;justify-content: space-between;">
+                                <h3 style="margin: 0;">Мои задания</h3>
+                                <p>Сдано.</p>
+                            </div>
+                            <div class="link-work" style="max-width: 100%; height: 70px; margin-top: 50px">
+                                <div class="text-link-work">
+                                    <div class="text-link-work title" style="margin-right: 10px;">
+                                        <svg width="31" height="35" viewBox="0 0 31 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13.4497 33.9H5.24964C2.98527 33.9 1.14964 32.0643 1.14966 29.8L1.14982 5.20007C1.14983 2.93572 2.98546 1.1001 5.24982 1.1001H23.7003C25.9646 1.1001 27.8003 2.93573 27.8003 5.2001V16.4751M21.6503 27.8228L25.843 23.6501M25.843 23.6501L29.8503 27.6342M25.843 23.6501V33.9001M8.3253 9.3001H20.6253M8.3253 15.4501H20.6253M8.3253 21.6001H14.4753" stroke="#0062BF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+
+                                        <p style="font-weight: 300;width: 195px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                            {{ done_work_file_name }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <h3>Мои задания</h3>
+                            <form action="{% url "create_done_work" work.id %}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="file" id="fileInput" name="work_file" required>
+                                <button type="submit" style="cursor: pointer;">Сдать</button>
+                            </form>
+                            <a style="cursor: not-allowed;">Отметить как выполненное</a>
+                        {% endif %}
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+{% endblock %}

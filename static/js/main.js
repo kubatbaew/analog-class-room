@@ -113,6 +113,7 @@ function setupDeleteModal() {
         button.addEventListener("click", function () {
             const parentItem = this.closest(".item");
             const parentItem2 = this.closest(".item-work")
+            const parentItem3 = this.closest(".work-read-title")
 
             if (parentItem) {
                 const deleteModal = parentItem.querySelector(".delete-modal");
@@ -135,6 +136,25 @@ function setupDeleteModal() {
             }
             else if (parentItem2) {
                 const deleteModal = parentItem2.querySelector(".delete-modal");
+                if (deleteModal) {
+                    deleteModal.classList.remove("delete-hidden");
+                    deleteModal.style.display = "flex";
+    
+                    const confirmDelete = deleteModal.querySelector(".delete-modal-button:first-child");
+                    const cancelDelete = deleteModal.querySelector(".delete-modal-button:last-child");
+    
+                    confirmDelete.addEventListener("click", () => {
+                        window.location.href = confirmDelete.dataset.deleteUrl;
+                    });
+    
+                    cancelDelete.addEventListener("click", () => {
+                        deleteModal.classList.add("delete-hidden");
+                        deleteModal.style.display = "none";
+                    });
+                }
+            }
+            else if (parentItem3) {
+                const deleteModal = parentItem3.querySelector(".delete-modal");
                 if (deleteModal) {
                     deleteModal.classList.remove("delete-hidden");
                     deleteModal.style.display = "flex";
