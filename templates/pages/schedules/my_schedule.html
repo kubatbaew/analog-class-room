@@ -1,6 +1,6 @@
 {% extends "base/base.html" %}
 
-{% block title %}Главная страница{% endblock %}
+{% block title %}Статистика{% endblock %}
     
 {% block class_body %}class="index-body"{% endblock %}
 
@@ -42,33 +42,56 @@
         </div>
         
         <div class="main">
-            <div class="content">
-                <ul class="items">
-                    {% for group in groups %}
-                        <li class="item">
-                            <div class="item-text" style="background-image: url('{{ group.banner_img.url }}'); background-size: 100%;">
-                                <a href="{% url "detail_group" group.id %}">
-                                    <h3>{{ group.title|truncatechars:22 }}</h3>
-                                    <p>{{ group.group_title }}</p>
-                                </a>
-                            </div>
-                            <hr class="item-hr">
-                            <div class="actions">
-                                <a>
-                                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M15 9C13.3431 9 12 7.65685 12 6C12 4.34315 13.3431 3 15 3C16.6569 3 18 4.34315 18 6C18 7.65685 16.6569 9 15 9Z" fill="#686868"/>
-                                        <path d="M15 18C13.3431 18 12 16.6569 12 15C12 13.3431 13.3431 12 15 12C16.6569 12 18 13.3431 18 15C18 16.6569 16.6569 18 15 18Z" fill="#686868" />
-                                        <path d="M15 27C13.3431 27 12 25.6569 12 24C12 22.3431 13.3431 21 15 21C16.6569 21 18 22.3431 18 24C18 25.6569 16.6569 27 15 27Z" fill="#686868"/>
-                                        <path d="M15 9C13.3431 9 12 7.65685 12 6C12 4.34315 13.3431 3 15 3C16.6569 3 18 4.34315 18 6C18 7.65685 16.6569 9 15 9Z" />
-                                        <path d="M15 18C13.3431 18 12 16.6569 12 15C12 13.3431 13.3431 12 15 12C16.6569 12 18 13.3431 18 15C18 16.6569 16.6569 18 15 18Z"/>
-                                        <path d="M15 27C13.3431 27 12 25.6569 12 24C12 22.3431 13.3431 21 15 21C16.6569 21 18 22.3431 18 24C18 25.6569 16.6569 27 15 27Z"/>
-                                    </svg> 
-                                </a>                       
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
+            <div class="head-info">
+                <h3 class="title-schedule">Статистика выполненных заданий</h3>
+                <div class="static-icon-schedule">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.0002 2.3999V5.9999C15.0002 6.66264 15.5375 7.1999 16.2002 7.1999H19.8002M8.4002 17.9999V13.1999M12.0002 17.9999L12.0002 8.3999M15.6002 17.9999V13.1999M18.0002 4.1999C17.4661 3.72204 16.9119 3.15528 16.5621 2.78718C16.3292 2.54224 16.0076 2.3999 15.6696 2.3999H6.59992C5.27444 2.3999 4.19993 3.47441 4.19992 4.79989L4.19983 19.1998C4.19982 20.5253 5.27433 21.5998 6.59982 21.5998L17.3999 21.5999C18.7253 21.5999 19.7998 20.5254 19.7999 19.2L19.8002 6.47773C19.8002 6.1709 19.6831 5.87594 19.4702 5.65503C19.0764 5.24655 18.4188 4.57442 18.0002 4.1999Z" stroke="#5D5D5D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>                    
+                </div>
             </div>
+
+
+            <div class="schedule-content">
+                <table class="schedule-table">
+                    <thead>
+                        <tr class="schedule-header">
+                            <th class="schedule-cell-main">№</th>
+                            <th class="schedule-cell-main" style="width: 530px;">Название предмета</th>
+                            <th class="schedule-cell-main" style="width: 99px;">Количество заданных зад.</th>
+                            <th class="schedule-cell-main" style="width: 99px;">Количество сделанных зад.</th>
+                            <th class="schedule-cell-main" style="width: 99px;">Средний процент выполнения</th>
+                            <th class="schedule-cell-main">Итоговый статус</th>
+                        </tr>
+                    </thead>
+                    <tbody class="schedule-table-tbody">
+
+                        {% for group in groups %}
+                            <tr class="schedule-row">
+                                <td class="schedule-cell">{{ group.count }}</td>
+                                <td class="schedule-cell">{{ group.group.title }}</td>
+                                <td class="schedule-cell">{{ group.group.works_for_group.all.count }}</td>
+                                <td class="schedule-cell">{{ group.done_work_count_total }}</td>
+                                <td class="schedule-cell">{{ group.total_percent_done }}%</td>
+                                <td class="schedule-cell">{{ group.total_status }}</td>
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                    <tfoot>
+                        <tr class="schedule-header">
+                            <th class="schedule-cell-main"></th>
+                            <th class="schedule-cell-main">Итоги выполненных зад.</th>
+                            <th class="schedule-cell-main"></th>
+                            <th class="schedule-cell-main"></th>
+                            <th class="schedule-cell-main">{{ average_percent_done }}%</th>
+                            <th class="schedule-cell-main">{{ average_status_done }}</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>                       
+            
+            
         </div>
     </div>
 

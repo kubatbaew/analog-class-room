@@ -53,3 +53,53 @@ def student_schedule(request, pk, group_pk):
     total_status = categorize_percentage(total_percent)
     total_percent = str(total_percent)[0:5]
     return render(request, "teacher/student/student_schedule.html", locals())
+
+
+def my_schedule(request):
+
+    if not request.user.is_authenticated:
+        return redirect("login")
+    
+    if request.user.is_student:
+
+        student = request.user
+        groups = []
+
+        count = 1
+
+        for group in student.groups_for_student.all():
+
+            done_count = 0
+            for work in group.works_for_group.all():
+                done_count += DoneWork.objects.select_related('student', 'work').filter(student=student, work=work).count()
+
+
+            done_work_count_total = done_count
+            total_percent_done = (done_count / group.works_for_group.all().count()) * 100 if done_count != 0 else 0
+
+            if group.works_for_group.all().count() == 0:
+                total_percent_done = 100
+
+            total_status = categorize_percentage(total_percent_done)
+            total_percent_done = str(total_percent_done)[0:5]
+            
+            groups.append(
+                {
+                    "count": count,
+                    "group": group,
+                    "done_work_count_total": done_work_count_total,
+                    "total_percent_done": total_percent_done,
+                    "total_status": total_status,
+                }
+            )
+            count += 1
+        
+        all_works = group.works_for_group.all()
+        average_percent_done = sum(float(group["total_percent_done"]) for group in groups) / len(groups) if groups else 0
+        average_status_done = categorize_percentage(average_percent_done)
+        average_percent_done = round(average_percent_done, 2)
+
+        return render(request, "pages/schedules/my_schedule.html", locals())
+    else:
+        return redirect("login")
+    

@@ -1,10 +1,10 @@
 from django.http import HttpRequest
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 def homepage(request: HttpRequest):
     if not request.user.is_authenticated:
-        ...
+        return redirect("login")
 
     if not request.user.is_student:
         return teacher_homepage(request)
