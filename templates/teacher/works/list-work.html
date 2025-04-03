@@ -81,7 +81,7 @@
                     </select>
                 </div>
 
-                <a href="asd.html" class="create-work-btn" style="margin-left: 155px">
+                <a href="{% url "create_work_to_group" group.id %}" class="create-work-btn" style="margin-left: 155px">
                     Создать задание
                 </a>
 
@@ -107,7 +107,7 @@
 
                                         <p>Срок сдачи: {{ work.delivery_time }}</p>
                                         
-                                        <div class="actions" style="padding: 0;">
+                                        <div style="padding: 0;">
                                             <a href="#" style="margin: 0;">
                                                 <svg width="25" height="25" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M13.5 8.09995C12.0088 8.09995 10.8 6.89112 10.8 5.39995C10.8 3.90878 12.0088 2.69995 13.5 2.69995C14.9912 2.69995 16.2 3.90878 16.2 5.39995C16.2 6.89112 14.9912 8.09995 13.5 8.09995Z" fill="#686868"/>
@@ -128,7 +128,7 @@
                                             <div class="delete-modal-content">
                                                 <p style="color: black; margin-right: 0;">Вы уверены, что хотите удалить этот элемент?</p>
                                                 <div class="delete-modal-actions">
-                                                    <button id="confirmDelete" class="delete-modal-button">Да</button>
+                                                    <button id="confirmDelete" class="delete-modal-button" data-delete-url="{% url 'delete_work' work.id group.id %}">Да</button>
                                                     <button id="cancelDelete" class="delete-modal-button">Отмена</button>
                                                 </div>
                                             </div>

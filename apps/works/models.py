@@ -37,6 +37,8 @@ class Work(models.Model):
     )
     description = models.TextField(
         verbose_name="Описание",
+        blank=True,
+        null=True
     )
     # TODO! links = // soon!
 

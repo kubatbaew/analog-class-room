@@ -90,7 +90,7 @@
                                     </svg>                          
                                 </a>
                                 <div class="actions-menu opa-hidden">
-                                    <a href="#" class="action-item" style="color: black;">Изменить</a>
+                                    <a href="{% url "create_work_to_group" work.group.id %}?update={{ work.id }}" class="action-item" style="color: black;">Изменить</a>
                                     <a class="action-item delete" style="color: black;">Удалить</a>
                                 </div>                                            
                             </div>    
@@ -99,7 +99,7 @@
                                 <div class="delete-modal-content">
                                     <p style="color: black; margin-right: 0;">Вы уверены, что хотите удалить этот элемент?</p>
                                     <div class="delete-modal-actions">
-                                        <button id="confirmDelete" class="delete-modal-button">Да</button>
+                                        <button id="confirmDelete" class="delete-modal-button" data-delete-url="{% url 'delete_work' work.id work.group.id %}">Да</button>
                                         <button id="cancelDelete" class="delete-modal-button">Отмена</button>
                                     </div>
                                 </div>

@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
@@ -92,3 +93,49 @@ def done_work_add_grade(request, pk):
     done_work.status = "done_grade"
     done_work.save()
     return redirect(f"{reverse('detail_done_work', args=[done_work.id])}?add=true")
+
+
+def create_work_to_group(request, pk):
+    group = get_object_or_404(Group, pk=pk)
+    if request.GET.get("update"):
+        work = get_object_or_404(Work, pk=request.GET["update"])
+
+    if request.method == "POST":
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+        group_id = request.POST.get("for_whom")
+        max_point = request.POST.get("max_point")
+        delivery_date = request.POST.get("delivery_date")
+        delivery_time = request.POST.get("delivery_time")
+        
+        # Объединяем дату и время в один datetime-объект
+        if delivery_date and delivery_time:
+            delivery_datetime = datetime.strptime(
+                f"{delivery_date} {delivery_time}", "%Y-%m-%d %H:%M"
+            )
+        else:
+            delivery_datetime = None
+
+        objects_t = request.POST.get("object_new") or request.POST.get("object")
+
+        new_work = Work.objects.update_or_create(
+            teacher=request.user,
+            title=title,
+            description=description,
+            group=group,
+            max_point=max_point,
+            delivery_time=delivery_datetime,
+            topic=objects_t
+        )
+
+        return redirect("list_works_by_group", group.id)
+
+    topics = set([i.topic for i in group.works_for_group.all()])
+    return render(request, "teacher/works/create-work.html", locals())
+
+
+def delete_work(request, pk, group_pk):
+    work = get_object_or_404(Work, pk=pk)
+    work.delete()
+
+    return redirect("list_works_by_group", group_pk)
