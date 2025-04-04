@@ -64,3 +64,16 @@ def add_student_to_group(request, pk):
         ...
     finally:
         return redirect("group_users", pk)
+
+
+def create_group(request):
+    if request.method == "POST":
+        group = Group.objects.create(
+            title = request.POST['title'],
+            subject = request.POST['subject'],
+            group_title = request.POST['groupName']
+        )
+        group.teachers.add(request.user)
+        return redirect('homepage')
+    
+    return render(request, "teacher/create_group.html", locals())

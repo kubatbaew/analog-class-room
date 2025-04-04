@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from apps.groups.models import Group
 from apps.works.models import Work, DoneWork
+from apps.news.models import Notification
 
 
 def list_works_by_group(request, pk):
@@ -118,7 +119,7 @@ def create_work_to_group(request, pk):
 
         objects_t = request.POST.get("object_new") or request.POST.get("object")
 
-        new_work = Work.objects.update_or_create(
+        new_work, created = Work.objects.update_or_create(
             teacher=request.user,
             title=title,
             description=description,
@@ -127,6 +128,14 @@ def create_work_to_group(request, pk):
             delivery_time=delivery_datetime,
             topic=objects_t
         )
+
+        if created:
+            Notification.objects.create(
+                group=group,
+                teacher=request.user,
+                work=new_work,
+                is_new_work=True
+            )
 
         return redirect("list_works_by_group", group.id)
 

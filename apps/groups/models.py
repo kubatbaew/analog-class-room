@@ -10,6 +10,7 @@ class Group(models.Model):
     banner_img = models.ImageField(
         upload_to=banner_to_group,
         verbose_name="Баннер",
+        default="default/default_banner.png"
     )
     title = models.CharField(
         max_length=120,

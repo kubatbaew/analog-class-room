@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать группу</title>
+
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+    <link rel="icon" href="{% static "favicon.ico" %}">
+</head>
+<body>
+    <div>
+        <div class="editModalGroup" id="editModalGroup" style="display: flex;">
+            <div class="editModal" style="height: 350px;">
+                <h2>Сведение о курсе</h2>
+                <form action="{% url "create_group" %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="subject">Название предмет (обязательно)</label>
+                        <input type="text" id="title" name="title" placeholder="Введите название предмета" value="{{ group.title }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="groupName">Название группы (обязательно)</label>
+                        <input type="text" id="groupName" name="groupName" placeholder="Введите название группы" value="{{ group.group_title }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Предмет (обязательно)</label>
+                        <input type="text" id="subject" name="subject" placeholder="Введите предмет" value="{{ group.subject }}">
+                    </div>
+                    <div class="form-actions">
+                        <a href="{% url "homepage" %}">
+                            <button type="button" id="cancelChange" class="cancel-btn">Отмена</button>
+                        </a>
+                        <button type="submit" class="save-btn">Создать</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    
+    <script src="{% static "js/main.js" %}"></script>
+</body>
+</html>

@@ -10,7 +10,7 @@ def homepage(request: HttpRequest):
         return teacher_homepage(request)
 
     user = request.user
-    groups = user.groups_for_student.all()
+    groups = user.groups_for_student.all()[::-1]
 
     return render(request, "pages/homepage/index.html", locals())
 
@@ -20,6 +20,6 @@ def teacher_homepage(request: HttpRequest):
         ...
 
     user = request.user
-    groups = user.groups_for_teacher.all()
+    groups = user.groups_for_teacher.all()[::-1]
 
     return render(request, "teacher/homepage/index.html", locals())

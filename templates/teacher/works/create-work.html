@@ -167,7 +167,7 @@
 
                 <label for="max_point" style="margin-top: 20px;">
                     Баллы
-                    <input type="text" name="max_point" maxlength="3" {% if work %}value="{{ work.max_point }}"{% else %}value="{{ work.max_point }}"{% endif %}>
+                    <input type="text" name="max_point" maxlength="3" {% if work %}value="{{ work.max_point }}"{% else %}value="100"{% endif %}>
                 </label>
 
                 <label for="delivery_date" style="margin-top: 20px;">
@@ -185,7 +185,7 @@
                             <option value="{{ topic }}" {% if work and work.topic == topic %}selected{% endif %}>{{ topic }}</option>
                         {% endfor %}
                     </select>
-                    <input type="text" name="object_new" id="create_object_input" style="display: none; width: auto">
+                    <input type="text" name="object_new" id="create_object_input" placeholder="Введите название темы" style="display: none; width: auto">
                     <button id="delete_input" style="display: none; border-radius: 7px">Удалить тему</button>
                 </label>
             </div>

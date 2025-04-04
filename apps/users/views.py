@@ -49,7 +49,8 @@ def student_schedule(request, pk, group_pk):
             }
         )
         count += 1
-    total_percent = (sum(total_done.grade for total_done in done_works) / sum(max_point["work"].max_point for max_point in works)) * 100
+    total_percent = (sum(total_done.grade for total_done in done_works) / total_max if (total_max := sum(max_point["work"].max_point for max_point in works)) else 1) * 100
+
     total_status = categorize_percentage(total_percent)
     total_percent = str(total_percent)[0:5]
     return render(request, "teacher/student/student_schedule.html", locals())
