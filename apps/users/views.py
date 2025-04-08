@@ -35,11 +35,30 @@ def student_schedule(request, pk, group_pk):
     student = get_object_or_404(User, pk=pk)
     works = []
     count = 1
-    done_works = DoneWork.objects.select_related('student', 'work').filter(student=student)
+    done_works = DoneWork.objects.select_related('student', 'work').filter(student=student, grade__isnull=False)
+
+    # Считаем работу по каждому заданию
+    total_grade = 0
+    total_max_point = 0
+    done_work_count_total = 0
 
     for work in group.works_for_group.all():
-        done_work = DoneWork.objects.select_related('student', 'work').filter(student=student, work=work)
-        status_done = categorize_percentage(calculate_percentage(done_work.first().grade if done_work.first() else None, work.max_point))
+        done_work = DoneWork.objects.filter(student=student, work=work).first()
+        if done_work is not None:
+            if done_work.grade is not None:
+                total_grade += done_work.grade
+                total_max_point += work.max_point
+                done_work_count_total += 1
+        else:
+            total_grade += 0
+            total_max_point += work.max_point
+
+
+        # Статус выполнения для каждого задания
+        status_done = categorize_percentage(
+            calculate_percentage(done_work.grade if done_work else None, work.max_point)
+        )
+        print(done_work)
         works.append(
             {
                 "count": count,
@@ -49,10 +68,16 @@ def student_schedule(request, pk, group_pk):
             }
         )
         count += 1
-    total_percent = (sum(total_done.grade for total_done in done_works) / total_max if (total_max := sum(max_point["work"].max_point for max_point in works)) else 1) * 100
+
+    # Теперь расчет для всей группы
+    if total_max_point > 0:
+        total_percent = (total_grade / total_max_point) * 100
+    else:
+        total_percent = 0
 
     total_status = categorize_percentage(total_percent)
-    total_percent = str(total_percent)[0:5]
+    total_percent = str(round(total_percent, 2))
+
     return render(request, "teacher/student/student_schedule.html", locals())
 
 
@@ -69,21 +94,29 @@ def my_schedule(request):
         count = 1
 
         for group in student.groups_for_student.all():
+            total_grade = 0
+            total_max_point = 0
+            done_work_count_total = 0
 
-            done_count = 0
             for work in group.works_for_group.all():
-                done_count += DoneWork.objects.select_related('student', 'work').filter(student=student, work=work).count()
+                done_work = DoneWork.objects.filter(student=student, work=work, grade__isnull=False).first()
+                if done_work:
+                    total_grade += done_work.grade
+                    total_max_point += work.max_point
+                    done_work_count_total += 1
+                else:
+                    total_grade += 0
+                    total_max_point += work.max_point
 
+            if total_max_point != 0:
+                total_percent_done = (total_grade / total_max_point) * 100
+            else:
+                total_percent_done = 0  # теперь всё правильно
 
-            done_work_count_total = done_count
-            total_percent_done = (done_count / group.works_for_group.all().count()) * 100 if done_count != 0 else 0
-
-            if group.works_for_group.all().count() == 0:
-                total_percent_done = 100
 
             total_status = categorize_percentage(total_percent_done)
-            total_percent_done = str(total_percent_done)[0:5]
-            
+            total_percent_done = str(round(total_percent_done, 2))
+
             groups.append(
                 {
                     "count": count,

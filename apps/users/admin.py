@@ -11,7 +11,6 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ['email']
     list_filter = ["is_student"]
     exclude = [
-        "password",
         "is_superuser",
         "is_staff",
         "user_permissions",

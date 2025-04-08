@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from django.contrib.auth.hashers import make_password, identify_hasher
+from django.core.exceptions import ImproperlyConfigured
+
 from apps.users.managers import UserManager
 
 
@@ -40,6 +43,17 @@ class User(AbstractUser):
     
     def get_full_name_header(self):
         return f"{self.first_name} {self.last_name[0]}. {self.father_name[0]}."
+    
+    def save(self, *args, **kwargs):
+        try:
+            
+            identify_hasher(self.password)
+        except ValueError:
+            self.password = make_password(self.password)
+        except ImproperlyConfigured:
+            pass
+
+        super().save(*args, **kwargs)
     
     class Meta:
         verbose_name = "Пользователь"

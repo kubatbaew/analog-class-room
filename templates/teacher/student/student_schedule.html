@@ -82,10 +82,12 @@
                                     <td class="schedule-cell">{{ work.count }}</td>
                                     <td class="schedule-cell">{{ work.work.title }}</td>
                                     <td class="schedule-cell">{{ work.work.max_point }}</td>
-                                    <td class="schedule-cell">{% if work.done_work %}{{ work.done_work.0.grade }}{% else %}0{% endif %}</td>
+                                    <td class="schedule-cell">{% if work.done_work.status == "done_grade" %}{{ work.done_work.grade }}{% elif work.done_work.status == "assigned" %}Задание отсуствует{% else %}Оценка не поставлена{% endif %}</td>
                                     <td class="schedule-cell">
-                                        {% if work.done_work %}
-                                            <a href="{% url "detail_done_work" work.done_work.0.id %}">Посмотреть задание</a>
+                                        {% if work.done_work.status == "submitted" %}
+                                            <a href="{% url "detail_done_work" work.done_work.id %}">Посмотреть задание</a>
+                                        {% elif work.done_work.status == "done_grade" %}
+                                            <a href="{% url "detail_done_work" work.done_work.id %}">Посмотреть задание</a>
                                         {% else %}
                                             Задание отсуствует
                                         {% endif %}
@@ -113,7 +115,7 @@
                             <th class="schedule-cell-main">Итоги выполненных зад.</th>
                             <th class="schedule-cell-main"></th>
                             <th class="schedule-cell-main"></th>
-                            <th class="schedule-cell-main">{{ total_total }}%</th>
+                            <th class="schedule-cell-main">{{ total_percent }}%</th>
                             <th class="schedule-cell-main">{{ total_status }}</th>
                         </tr>
                     </tfoot>
