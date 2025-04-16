@@ -218,7 +218,7 @@
                                             </svg>                          
                                         </a>
                                         <div class="actions-menu opa-hidden">
-                                            <a href="" class="action-item" style="color: black;">Доп. задание</a>
+                                            {% comment %} <a href="" class="action-item" style="color: black;">Доп. задание</a> {% endcomment %}
                                             <a class="action-item delete" style="color: black;">Удалить</a>
                                         </div>                                            
                                     </div>    
@@ -227,7 +227,7 @@
                                         <div class="delete-modal-content">
                                             <p style="color: black; margin-right: 0;">Вы уверены, что хотите удалить этот элемент?</p>
                                             <div class="delete-modal-actions">
-                                                <button id="confirmDelete" class="delete-modal-button">Да</button>
+                                                <button id="confirmDelete" class="delete-modal-button" data-delete-url="{% url "delete_user_is_group" student.id group.id %}">Да</button>
                                                 <button id="cancelDelete" class="delete-modal-button">Отмена</button>
                                             </div>
                                         </div>
@@ -254,18 +254,103 @@
         </div>
     </div>
 
+    <style>
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            border: 1px solid #ccc;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: text;
+        }
+    
+        .tag {
+            background-color: #e0f7fa;
+            color: #00796b;
+            padding: 5px 10px;
+            margin: 3px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+        }
+    
+        .tag button {
+            background: none;
+            border: none;
+            margin-left: 5px;
+            color: red;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    
+        .tag-input {
+            border: none;
+            outline: none;
+            flex: 1;
+            min-width: 150px;
+            padding: 5px;
+        }
+    </style>
+    
     <div class="editModalGroup" id="editModalGroup">
         <div class="add_student_to_group">
             <button type="button" class="cancel-add-student" id="cancel-add-student-btn">Назад</button>
-            <form action="{% url "add_student_to_group" group.id %}" method="POST">
+            <form action="{% url 'add_student_to_group' group.id %}" method="POST">
                 {% csrf_token %}
-                <label for="student_username">
-                    Почта студента
-                    <input type="text" name="student_username" placeholder="kubatbaev123456@oshsu.kg">
+                <label for="student_emails">
+                    Почты студентов
+                    <div class="tag-container" id="tag-container" style="flex-direction: column;">
+                        <input type="text" id="tag-input" class="tag-input" placeholder="Введите email и нажмите Enter">
+                    </div>
+                    <input type="hidden" name="student_emails" id="student-emails-hidden">
                 </label>
                 <button class="add-add-student-btn">Добавить</button>
             </form>
         </div>
-    </div>    
+    </div>
+
+    <script>
+        const tagContainer = document.getElementById('tag-container');
+        const tagInput = document.getElementById('tag-input');
+        const hiddenInput = document.getElementById('student-emails-hidden');
+    
+        let tags = [];
+    
+        function updateHiddenInput() {
+            hiddenInput.value = tags.join(',');
+        }
+    
+        function createTag(email) {
+            const tag = document.createElement('span');
+            tag.classList.add('tag');
+            tag.textContent = email;
+    
+            const removeBtn = document.createElement('button');
+            removeBtn.innerHTML = '&times;';
+            removeBtn.onclick = () => {
+                tags = tags.filter(t => t !== email);
+                tag.remove();
+                updateHiddenInput();
+            };
+    
+            tag.appendChild(removeBtn);
+            tagContainer.insertBefore(tag, tagInput);
+        }
+    
+        tagInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ',' || e.key === ' ') {
+                e.preventDefault();
+                const email = tagInput.value.trim();
+                if (email && !tags.includes(email)) {
+                    tags.push(email);
+                    createTag(email);
+                    updateHiddenInput();
+                }
+                tagInput.value = '';
+            }
+        });
+    </script>
+    
+      
 
 {% endblock %}

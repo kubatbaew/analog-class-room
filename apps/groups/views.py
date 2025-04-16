@@ -55,15 +55,17 @@ def group_users(request, pk):
 
 def add_student_to_group(request, pk):
     group = get_object_or_404(Group, pk=pk)
-    student_email = request.POST.get("student_username")
-    try:
-        student = User.objects.get(email=student_email)
+    emails_raw = request.POST.get("student_emails", "")
+    email_list = [email.strip() for email in emails_raw.split(",") if email.strip()]
 
-        group.students.add(student)
-    except User.DoesNotExist:
-        ...
-    finally:
-        return redirect("group_users", pk)
+    for email in email_list:
+        try:
+            student = User.objects.get(email=email)
+            group.students.add(student)
+        except User.DoesNotExist:
+            pass
+
+    return redirect("group_users", pk=pk)
 
 
 def create_group(request):

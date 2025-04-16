@@ -136,4 +136,17 @@ def my_schedule(request):
         return render(request, "pages/schedules/my_schedule.html", locals())
     else:
         return redirect("login")
+
+def delete_user_is_group(request, user_pk, group_pk):
+    group = get_object_or_404(Group, pk=group_pk)
+    user = get_object_or_404(User, pk=user_pk)
+
+    if user in group.students.all():
+        DoneWork.objects.filter(
+            student=user,
+            work__group=group
+        ).delete()
+
+        group.students.remove(user)
     
+    return redirect("group_users", group.id)

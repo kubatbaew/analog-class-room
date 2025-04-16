@@ -1,20 +1,146 @@
+<style>
+    .full_info_request_user {
+        opacity: 0;
+        width: 300px;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        position: absolute;
+        background-color: white;
+        padding: 20px;
+        border-radius: 7px;
+        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+        top: 40px;
+        right: 0px;
+        z-index: 1000;
+        min-width: 220px;
+    }
+
+    .avatar {
+        position: relative;
+    }
+
+    .avatar-text {
+        cursor: pointer;
+    }
+
+    .avatar:hover .full_info_request_user {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .groups h3 {
+        margin-bottom: 10px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .group-item {
+        position: relative;
+        cursor: pointer;
+        padding: 8px 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        margin-bottom: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .group-item:hover {
+        background-color: #ececec;
+    }
+
+    .group-item::after {
+        content: "▾";
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%) rotate(0deg);
+        transition: transform 0.3s ease;
+    }
+
+    .group-item.open::after {
+        transform: translateY(-50%) rotate(180deg);
+    }
+
+    .students-list {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+        padding-left: 15px;
+    }
+
+    .students-list.show {
+        max-height: 500px; /* ограничение для анимации */
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .students-list li {
+        padding: 3px 0;
+        font-size: 14px;
+    }
+
+    .students-list li {
+        padding: 5px;
+        font-size: 14px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    
+    .students-list li:hover {
+        background-color: #f0f0f0;
+        transform: translateX(5px);
+    }
+</style>
+
 <header class="header">
-    <div class="menu">
+    <!-- <div class="menu">
         <a href="#" class="menu-btn">
             <img src="../images/components/menu.svg" id="active-logo-no-hover" class="menu-logo" alt="">
             <img src="images/components/menu-hover.svg" id="active-logo-hover" class="menu-logo" alt="">
             <img src="images/components/menu-click.svg" id="active-logo-click" class="menu-logo" alt="">
             <img src="images/components/menu-click-hover.svg" id="active-logo-click-hover" class="menu-logo" alt="">
         </a>
-    </div>
+    </div> -->
 
     <div class="logo">
         <a href="{% url "homepage" %}">
-            <img class="logo-img" src="../images/logo/logo.svg" alt="">
+            <img class="logo-img" src="../images/logo/logo.png" alt="" style="width: 11%; top: 9px;">
         </a>
     </div>
 
     <div class="avatar" style="margin-left: 50px;">
         <h4 class="avatar-text">{{ user.get_full_name_header }}</h4>
+
+        <div class="full_info_request_user">
+            <p>{{ user.first_name }} {{ user.last_name }} {{ user.father_name }}</p>
+
+            {% if not request.user.is_student %}
+                <div class="groups">
+                    <h3 style="padding-top: 20px">Мои группы</h3>
+
+                    {% for group in request.user.groups_for_teacher.all %}
+                        <div class="group-item" onclick="toggleStudents(this, 'group{{ group.id }}')" style="font-weight: 500;">{{ group.title }}</div>
+                        <ul class="students-list" id="group{{ group.id }}" style="overflow-y: auto; height: 100px">
+
+                            {% for student in group.students.all %}
+                                <li style="font-size: 15px;">
+                                    <a href="{% url "student_schedule" student.id group.id %}" style="color: black; font-weight: 400;">{{ student.first_name }} {{ student.last_name }}</a>
+                                </li>
+                            {% endfor %}
+
+                        </ul>
+                    {% endfor %}
+
+                </div>
+            {% endif %}
+        </div>
     </div>
 </header>
+
+<script>
+    function toggleStudents(groupElement, listId) {
+        const list = document.getElementById(listId);
+        list.classList.toggle("show");
+        groupElement.classList.toggle("open");
+    }
+</script>

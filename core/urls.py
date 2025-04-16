@@ -1,4 +1,4 @@
-from core.admin import admin
+from core.admin import admin_panel
 from django.urls import path, include
 
 from django.conf import settings
@@ -9,7 +9,7 @@ urlpatterns = [
     path('', include("apps.groups.urls")),
     path('', include("apps.users.urls")),
     path('', include("apps.works.urls")),
-    path('admin/', admin.site.urls),
+    path('admin/', admin_panel.site.urls),
 ]
 
 
